@@ -14,7 +14,6 @@ function start() {
 
 function timeStamp() {
     timeElapsed = Date.now() - startTime;
-    console.log(timeElapsed);
     renderTime();
 }
 
@@ -56,20 +55,37 @@ function renderTime() {
 }
 
 document.getElementById("start").addEventListener("click", function() {
+    document.getElementById("start").disabled = true;
+    document.getElementById("start").style.background = "grey";
+    document.getElementById("start").style.fontWeight = "bold";
+
     if (test === undefined) {
         start();
         test = setInterval(timeStamp, 1000);
     }
     else {
-        startTime = timeElapsed;
-        console.log(startTime);
+        startTime = Date.now() - timeElapsed;
         test = setInterval(timeStamp, 1000);
     }
 });
 
 document.getElementById("stop").addEventListener("click", function() {
+    document.getElementById("start").disabled = false;
+    document.getElementById("start").style.background = "white";
+    document.getElementById("start").style.fontWeight = "normal";
+
+    clearInterval(test);
+});
+
+document.getElementById("reset").addEventListener("click", function() {
+    document.getElementById("start").disabled = false;
+    document.getElementById("start").style.background = "white";
+    document.getElementById("start").style.fontWeight = "normal";
+    timeElapsed = 0;
+    document.querySelector(".timer").textContent = 'press START to run the timer';
     clearInterval(test);
 });
 
 displayTime();
+document.querySelector(".timer").textContent = 'press START to run the timer';
 const createClock = setInterval(displayTime, 1000);
