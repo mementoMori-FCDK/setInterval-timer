@@ -1,22 +1,36 @@
-let timeElapsed = 0;
-let startTime = 0;
-let test = undefined;
+let timeElapsed = 0;            // elapsed time tracker
+let startTime = 0;              // stores the start time value
+let test = undefined;           // stores interval pointer
 
+/**
+ * display the clock
+ */
 function displayTime() {
     let date = new Date();
     let time = date.toLocaleTimeString();
     let p = document.querySelector(".clock").textContent = time;
 }
 
+/**
+ * start the timer
+ */
 function start() {
     startTime = Date.now();
 }
 
+/**
+ * update a timer
+ * calls renderTime() (see renederTime() documentation)
+ */
 function timeStamp() {
     timeElapsed = Date.now() - startTime;
     renderTime();
 }
 
+/**
+ * renders timeElapsed to hours, minutes, seconds
+ * updates the timer text content
+ */
 function renderTime() {
     let hours = 0;
     let minutes = 0;
@@ -54,6 +68,11 @@ function renderTime() {
     document.querySelector(".timer").textContent = timer;
 }
 
+/**
+ * start button click event listener
+ * disables and changes the style of the button on click
+ * updates startTime if timer was unpaused
+ */
 document.getElementById("start").addEventListener("click", function() {
     document.getElementById("start").disabled = true;
     document.getElementById("start").style.background = "grey";
@@ -69,6 +88,10 @@ document.getElementById("start").addEventListener("click", function() {
     }
 });
 
+/**
+ * stop button click event listener
+ * enables the start button
+ */
 document.getElementById("stop").addEventListener("click", function() {
     document.getElementById("start").disabled = false;
     document.getElementById("start").style.background = "white";
@@ -77,6 +100,11 @@ document.getElementById("stop").addEventListener("click", function() {
     clearInterval(test);
 });
 
+/**
+ * reset button click event listener
+ * resets the timer
+ * enables the start button
+ */
 document.getElementById("reset").addEventListener("click", function() {
     document.getElementById("start").disabled = false;
     document.getElementById("start").style.background = "white";
